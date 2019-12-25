@@ -30,7 +30,7 @@ By exercising the Licensed Rights (defined below), You accept and agree to be bo
   
   m. **Sui Generis Database Rights** means rights other than copyright resulting from Directive 96/9/EC of the European Parliament and of the Council of 11 March 1996 on the legal protection of databases, as amended and/or succeeded, as well as other essentially equivalent rights anywhere in the world.
   
-  n. **You** means the individual or entity exercising the Licensed Rights under this Public License. Your has a corresponding meaning.
+  n. **You** means the individual or entity exercising the Licensed Rights under this Public License. **Your** has a corresponding meaning.
 
 **Section 2 – Scope.**
 
