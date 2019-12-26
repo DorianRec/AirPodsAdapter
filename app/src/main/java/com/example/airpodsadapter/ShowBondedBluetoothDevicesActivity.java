@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,20 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class FindBluetoothDevicesActivity extends AppCompatActivity {
+public class ShowBondedBluetoothDevicesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_bluetooth_devices);
+        setContentView(R.layout.activity_show_bonded_bluetooth_devices);
 
-        // Get the Intent that started this activity and extract the string
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
-        // Capture the layout's TextView and set the string as its text
-        //TextView textView = findViewById(R.id.textView);
-        //textView.setText(message);
+        refresh(null);
     }
 
     public void refresh(View view) {
@@ -44,7 +37,7 @@ public class FindBluetoothDevicesActivity extends AppCompatActivity {
         }
 
         /*
-        Find paired bluetooth devices
+        Find bonded (paired) bluetooth devices
         (Gekoppelte Bluetooth Geraete)
          */
         Set<BluetoothDevice> pairedBTDevicesSet = mBluetoothAdapter.getBondedDevices();
@@ -65,7 +58,7 @@ public class FindBluetoothDevicesActivity extends AppCompatActivity {
 
 
         final ArrayAdapter listAdapter = new ArrayAdapter<>(
-                FindBluetoothDevicesActivity.this,
+                ShowBondedBluetoothDevicesActivity.this,
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 pairedBTDevicesNamesArray);
@@ -77,10 +70,17 @@ public class FindBluetoothDevicesActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        // TODO Auto-generated method stub
                         String value = (String) listAdapter.getItem(position);
-                        Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ShowBondedBluetoothDevicesActivity.this,
+                                BluetoothDeviceInfoActivity.class);
 
+                        //BluetoothDeviceParcelable bluetoothDeviceParcelable =
+                        //        new BluetoothDeviceParcelable((Parcel)listAdapter.getItem(position));
+
+                        //intent.putExtra("pairedBTDevice", BluetoothDeviceParcelable.CREATOR());
+                        intent.putExtra("BTDeviceName", value);
+                        startActivity(intent);
                     }
                 });
     }

@@ -20,10 +20,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void findBT(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, FindBluetoothDevicesActivity.class);
+        Intent intent = new Intent(this, ShowBondedBluetoothDevicesActivity.class);
         //TextView editText = findViewById(R.id.textView);
-        //String message = editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 
