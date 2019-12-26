@@ -6,19 +6,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class DisplayMessageActivity extends AppCompatActivity {
-
+public class BluetoothDeviceInfoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_message);
+        setContentView(R.layout.activity_bluetooth_device_info);
 
-        // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
-        System.out.println("message: " + message);
-        // Capture the layout's TextView and set the string as its text
+        // Get the Intent that started this activity and extract the string
+        String message = intent.getStringExtra("BTDeviceName");
         TextView textView = findViewById(R.id.textView);
         textView.setText(message);
     }
