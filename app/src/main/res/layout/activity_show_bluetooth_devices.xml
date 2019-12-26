@@ -5,17 +5,13 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="findBT"
-        android:text="Show bonded bluetooth devices" />
+        android:onClick="refresh"
+        android:text="Refresh" />
 
-    <Button
-        android:id="@+id/button2"
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="gotoShowBluetoothDevices"
-        android:text="Show bluetooth devices" />
-
+        android:layout_height="match_parent" />
 </LinearLayout>

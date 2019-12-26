@@ -21,4 +21,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ShowBondedBluetoothDevicesActivity.class);
         startActivity(intent);
     }
+
+    public void gotoShowBluetoothDevices(View view) {
+        Intent intent = new Intent(this, ShowBluetoothDevicesActivity.class);
+        startActivity(intent);
+    }
 }
