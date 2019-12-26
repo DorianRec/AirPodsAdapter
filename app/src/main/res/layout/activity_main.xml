@@ -8,8 +8,8 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="sendMessage"
-        android:text="SEND MESSAGE" />
+        android:onClick="findBT"
+        android:text="Find BT devices" />
 
     <TextView
         android:id="@+id/textView"
