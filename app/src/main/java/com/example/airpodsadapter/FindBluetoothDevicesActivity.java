@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,25 +42,33 @@ public class FindBluetoothDevicesActivity extends AppCompatActivity {
             Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBluetooth, 0);
         }
-        Set<BluetoothDevice> pairedDevicesSet = mBluetoothAdapter.getBondedDevices();
 
-        List<BluetoothDevice> pairedDevicesList = new ArrayList<>();
-        pairedDevicesList.addAll(pairedDevicesSet);
-        String[] devices = {};
-        for (int i = 0; i < pairedDevicesList.size(); i++) {
-            devices[i] = pairedDevicesList.get(i).getName();
+        /*
+        Find paired bluetooth devices
+        (Gekoppelte Bluetooth Geraete)
+         */
+        Set<BluetoothDevice> pairedBTDevicesSet = mBluetoothAdapter.getBondedDevices();
+        List<String> pairedBTDevicesNameList = new ArrayList<>();
+
+        for (BluetoothDevice bluetoothDevice : pairedBTDevicesSet) {
+            pairedBTDevicesNameList.add(bluetoothDevice.getName());
+        }
+
+        String[] pairedBTDevicesNamesArray = new String[pairedBTDevicesSet.size()];
+
+        for (int i = 0; i < pairedBTDevicesSet.size(); i++) {
+            pairedBTDevicesNamesArray[i] = pairedBTDevicesNameList.get(i);
         }
 
 
         ListView bluetoothDevicesListView = findViewById(R.id.listView);
-        TextView textView = findViewById(R.id.textView);
 
 
-        final ArrayAdapter listAdapter = new ArrayAdapter<String>(
+        final ArrayAdapter listAdapter = new ArrayAdapter<>(
                 FindBluetoothDevicesActivity.this,
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
-                devices);
+                pairedBTDevicesNamesArray);
 
         bluetoothDevicesListView.setAdapter(listAdapter);
 
