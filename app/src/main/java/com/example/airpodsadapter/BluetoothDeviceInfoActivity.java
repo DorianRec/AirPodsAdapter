@@ -1,5 +1,6 @@
 package com.example.airpodsadapter;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -14,8 +15,10 @@ public class BluetoothDeviceInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         // Get the Intent that started this activity and extract the string
-        String message = intent.getStringExtra("BTDeviceName");
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(message);
+        BluetoothDevice bluetoothDevice = intent.getParcelableExtra("BTDeviceName");
+        TextView name = findViewById(R.id.name);
+        TextView address = findViewById(R.id.address);
+        name.setText("Name: " + bluetoothDevice.getName());
+        address.setText("Address: " + bluetoothDevice.getName());
     }
 }
