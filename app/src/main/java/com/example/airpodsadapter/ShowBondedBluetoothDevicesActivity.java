@@ -41,27 +41,26 @@ public class ShowBondedBluetoothDevicesActivity extends AppCompatActivity {
         (Gekoppelte Bluetooth Geraete)
          */
         Set<BluetoothDevice> pairedBTDevicesSet = mBluetoothAdapter.getBondedDevices();
-        List<String> pairedBTDevicesNameList = new ArrayList<>();
+        List<BluetoothDevice> pairedBTDevicesNameList = new ArrayList<>();
 
         for (BluetoothDevice bluetoothDevice : pairedBTDevicesSet) {
-            pairedBTDevicesNameList.add(bluetoothDevice.getName());
+            pairedBTDevicesNameList.add(bluetoothDevice);
         }
 
         String[] pairedBTDevicesNamesArray = new String[pairedBTDevicesSet.size()];
 
         for (int i = 0; i < pairedBTDevicesSet.size(); i++) {
-            pairedBTDevicesNamesArray[i] = pairedBTDevicesNameList.get(i);
+            pairedBTDevicesNamesArray[i] = pairedBTDevicesNameList.get(i).getName();
         }
-
 
         ListView bluetoothDevicesListView = findViewById(R.id.listView);
 
 
-        final ArrayAdapter listAdapter = new ArrayAdapter<>(
+        final ArrayAdapter listAdapter = new ArrayAdapter<BluetoothDevice>(
                 ShowBondedBluetoothDevicesActivity.this,
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
-                pairedBTDevicesNamesArray);
+                pairedBTDevicesNameList);
 
         bluetoothDevicesListView.setAdapter(listAdapter);
 
@@ -70,16 +69,17 @@ public class ShowBondedBluetoothDevicesActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        String value = (String) listAdapter.getItem(position);
+                        BluetoothDevice bluetoothDevice = (BluetoothDevice) listAdapter.getItem(position);
+                        String value = bluetoothDevice.getName();
                         //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ShowBondedBluetoothDevicesActivity.this,
                                 BluetoothDeviceInfoActivity.class);
 
                         //BluetoothDeviceParcelable bluetoothDeviceParcelable =
-                        //        new BluetoothDeviceParcelable((Parcel)listAdapter.getItem(position));
+                        //        new BluetoothDeviceParcelable(listAdapter.getItem(position));
 
                         //intent.putExtra("pairedBTDevice", BluetoothDeviceParcelable.CREATOR());
-                        intent.putExtra("BTDeviceName", value);
+                        intent.putExtra("BTDeviceName", bluetoothDevice);
                         startActivity(intent);
                     }
                 });
