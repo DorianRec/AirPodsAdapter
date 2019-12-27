@@ -2,8 +2,6 @@ package com.example.airpodsadapter;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothHeadset;
-import android.bluetooth.BluetoothProfile;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,26 +33,6 @@ public class ShowBluetoothDevicesActivity extends AppCompatActivity {
      * Get the default adapter.
      */
     BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    /**
-     * The profile proxy
-     */
-    BluetoothHeadset bluetoothHeadset; // proxy
-    /**
-     * The Listener notifies BluetoothProfile
-     */
-    private BluetoothProfile.ServiceListener profileListener = new BluetoothProfile.ServiceListener() {
-        public void onServiceConnected(int profile, BluetoothProfile proxy) {
-            if (profile == BluetoothProfile.HEADSET) {
-                bluetoothHeadset = (BluetoothHeadset) proxy;
-            }
-        }
-
-        public void onServiceDisconnected(int profile) {
-            if (profile == BluetoothProfile.HEADSET) {
-                bluetoothHeadset = null;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,15 +52,6 @@ public class ShowBluetoothDevicesActivity extends AppCompatActivity {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, 0);
         }
-
-        // Establish connection to the proxy.
-        bluetoothAdapter.getProfileProxy(ShowBluetoothDevicesActivity.this,
-                profileListener, BluetoothProfile.HEADSET);
-
-        // ... call functions on bluetoothHeadset
-
-        // Close proxy connection after use.
-        bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, bluetoothHeadset);
 
         /*
         Code for finding bluetooth devices
