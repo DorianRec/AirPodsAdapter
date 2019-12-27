@@ -159,4 +159,12 @@ public class BluetoothDeviceInfoActivity extends AppCompatActivity {
         UUID: PnP Information           (00001200-0000-1000-8000-00805f9b34fb)
         UUID: Vendor specific           (74ec2172-0bad-4d01-8f77-997b2be0722a) x
         */
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Don't forget to unregister the ACTION_FOUND receiver.
+        unregisterReceiver(receiver);
+    }
 }

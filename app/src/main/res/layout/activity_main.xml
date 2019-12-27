@@ -11,11 +11,4 @@
         android:onClick="findBT"
         android:text="Show bonded bluetooth devices" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="gotoShowBluetoothDevices"
-        android:text="Show bluetooth devices" />
-
 </LinearLayout>
