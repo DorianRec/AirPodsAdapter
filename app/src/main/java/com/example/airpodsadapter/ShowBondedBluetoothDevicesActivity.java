@@ -17,6 +17,8 @@ import java.util.Set;
 
 public class ShowBondedBluetoothDevicesActivity extends AppCompatActivity {
 
+    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +29,10 @@ public class ShowBondedBluetoothDevicesActivity extends AppCompatActivity {
 
     public void refresh(View view) {
 
-        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         /*
         If not enabled, request
          */
-        if (!mBluetoothAdapter.isEnabled()) {
+        if (!bluetoothAdapter.isEnabled()) {
             Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBluetooth, 0);
         }
@@ -40,7 +41,7 @@ public class ShowBondedBluetoothDevicesActivity extends AppCompatActivity {
         Find bonded (paired) bluetooth devices
         (Gekoppelte Bluetooth Geraete)
          */
-        Set<BluetoothDevice> pairedBTDevicesSet = mBluetoothAdapter.getBondedDevices();
+        Set<BluetoothDevice> pairedBTDevicesSet = bluetoothAdapter.getBondedDevices();
         List<BluetoothDevice> pairedBTDevicesNameList = new ArrayList<>();
 
         for (BluetoothDevice bluetoothDevice : pairedBTDevicesSet) {
@@ -53,23 +54,26 @@ public class ShowBondedBluetoothDevicesActivity extends AppCompatActivity {
             pairedBTDevicesNamesArray[i] = pairedBTDevicesNameList.get(i).getName();
         }
 
+
         ListView bluetoothDevicesListView = findViewById(R.id.listView);
 
 
-        final ArrayAdapter listAdapter = new ArrayAdapter<BluetoothDevice>(
+        final ArrayAdapter listViewAdapter = new ArrayAdapter<BluetoothDevice>(
                 ShowBondedBluetoothDevicesActivity.this,
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
                 pairedBTDevicesNameList);
 
-        bluetoothDevicesListView.setAdapter(listAdapter);
+        bluetoothDevicesListView.setAdapter(listViewAdapter);
 
-
+        /*
+        Event for clicking on items
+         */
         bluetoothDevicesListView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        BluetoothDevice bluetoothDevice = (BluetoothDevice) listAdapter.getItem(position);
+                        BluetoothDevice bluetoothDevice = (BluetoothDevice) listViewAdapter.getItem(position);
                         String value = bluetoothDevice.getName();
                         //Toast.makeText(getApplicationContext(), value, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ShowBondedBluetoothDevicesActivity.this,
